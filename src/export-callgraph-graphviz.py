@@ -105,7 +105,6 @@ def process_stack_file(input_path):
             break
 
     # Calculate total slot counts for edges
-    # total_slot_count_from_nodes = sum(n["SlotCount"] for n in G.nodes().values())
     total_slot_count_from_edges = sum(e["SlotCount"] for e in G.edges().values())
 
     # Add attributes to nodes and edges for DOT output
@@ -147,20 +146,3 @@ G = process_stack_file(sys.argv[1])
 out_filename_without_ext = splitext(sys.argv[1])[0]
 write_dot(G, out_filename_without_ext + ".dot")
 nx.nx_agraph.to_agraph(G).draw(path=out_filename_without_ext + ".svg", prog='dot',format='svg')
-
-# print all simple paths in the graph
-paths = []
-for source in G.nodes:
-    for target in G.nodes:
-        if source != target:
-            for path in nx.all_simple_paths(G, source=source, target=target):
-                # get the total weight of the path and print it
-                # print(" -> ".join(path) + f" SlotCount: {nx.path_weight(G, path, weight='SlotCount')}")
-                # append the path, and it's length to a list
-                paths.append((path, nx.path_weight(G, path, weight='SlotCount')))
-
-# sort the paths by length, descending, and print the top 2
-paths.sort(key=lambda x: x[1], reverse=True)
-print("\nTop 2 longest paths:")
-for path, length in paths[:2]:
-    print(" -> ".join(path) + f" Length: {length}")

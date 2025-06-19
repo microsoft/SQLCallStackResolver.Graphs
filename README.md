@@ -1,14 +1,30 @@
+# Introduction
+This repo provides a script which construct a visual call graph representation of a set of call stacks. It's currently optimized for SQL Server call stacks symbolized by [SQLCallStackResolver](https://aka.ms/SQLStack). Users can use these generated call graphs to visually understand the flow in the SQL Server functions being executed in their scenario. Call graphs can be especially useful to diagnose memory leaks. An example of such a visualized call graph for a memory leak case is shown below. The intuition behind using these call graphs is to follow the thicker connections in the graph - thick lines indicate high rate of calls of those functions. If there are equal or comparable calls to new() and free() - conceptually speaking - then you may conclude there's no leak; in this specific case, there's hardly any calls to free(); indicating a potential memory leak.
+
+<img src="images/call-graph-leak-sample.png" alt="Sample call graph for a memory leak scenario" style="width: 1280px">
+
+# Usage
+First, ensure you have installed the pre-requisites. Then, just run export-callgraph-graphviz.py with the full path to the file containing the call stacks to be visualized.
+
+```
+cd C:\SCSR-Graphs
+python .\src\export-callgraph-graphviz.py C:\temp\generate-series-leak-cu19.txt
+```
+The script will output 2 files - a DOT file, which is in standard GraphViz format; and a SVG file which can be viewed in your browser, or in more specialized tools like [InkScape](https://inkscape.org). Here is a sample screenshot of the output files:
+
+<img src="images/output-files.png" alt="Output files" style="width: 400px">
+
 # Installation on Windows
 
 * Clone this repo to `C:\SCSR-Graphs`
 
 * Install [Python 3.13.5 for Windows](https://www.python.org/ftp/python/3.13.5/python-3.13.5-amd64.exe). Ensure the "Add Python to environmental variables" checkbox is selected.
 
-  ![Python installation screen](images/python-installer.png)
+<img src="images/python-installer.png" alt="Python installation screen" style="width: 400px">
 
 * Download [GraphViz for Windows](https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/13.0.1/windows_10_cmake_Release_Graphviz-13.0.1-win64.zip) and extract it to a folder like `C:\GraphViz`.
 
-  ![Contents of GraphViz folder after extraction](images/graphviz-folder.png)
+<img src="images/graphviz-folder.png" alt="Contents of GraphViz folder after extraction" style="width: 300px">
 
 * Add the GraphViz `bin` folder to the system PATH variable.
 
@@ -18,7 +34,7 @@
 
 * Install [Visual C++ Build Tools](https://aka.ms/vs/17/release/vs_BuildTools.exe) and restart Windows if prompted to, at the end of the installation.
 
-  ![Visual C++ Build Tools installation screen](images/vcbuildtools.png)
+<img src="images/vcbuildtools.png" alt="Visual C++ Build Tools installation screen" style="width: 600px">
 
 * Install PyGraphViz using pip by running the following command within a PowerShell window:
 
@@ -68,13 +84,3 @@ Successfully installed networkx-3.5 pydot-4.0.1 pyparsing-3.2.3
 
 At this stage, you are ready to use the Python script!
 
-# Running the Python script
-Just run export-callgraph-graphviz.py with the full path to the file containing the call stacks to be visualized.
-
-```
-cd C:\SCSR-Graphs
-python .\src\export-callgraph-graphviz.py C:\temp\generate-series-leak-cu19.txt
-```
-The script will output 2 files - a DOT file, which is in standard GraphViz format; and a SVG file which can be viewed in your browser, or in more specialized tools like [InkScape](https://inkscape.org). Here is a sample screenshot of the output files:
-
-  ![Output files](images/output-files.png)

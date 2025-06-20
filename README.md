@@ -84,3 +84,9 @@ Successfully installed networkx-3.5 pydot-4.0.1 pyparsing-3.2.3
 
 At this stage, you are ready to use the Python script!
 
+# Credits
+The Python script depends on the below:
+* [NetworkX](https://networkx.org/) - for a graph (network) representation of the call graph.
+* [PyGraphviz](https://pygraphviz.github.io/) - used to export the NetworkX graph to SVG and DOT formats.
+* [Graphviz](https://graphviz.org/about/) - used by PyGraphviz internally.
+* [Pydot](https://github.com/pydot/pydot) - used by PyGraphviz internally.

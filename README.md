@@ -3,6 +3,8 @@ This repo provides a script which construct a visual call graph representation o
 
 <img src="images/call-graph-leak-sample.png" alt="Sample call graph for a memory leak scenario" style="width: 1280px">
 
+Please note that this sample tool is provided AS-IS - see [SUPPORT](SUPPORT.md) for details.
+
 # Usage
 First, ensure you have installed the pre-requisites. Then, just run export-callgraph-graphviz.py with the full path to the file containing the call stacks to be visualized.
 
